@@ -31,33 +31,38 @@ def hippic(response , horses):
     else:
         return "pas de course a ce nom reessayez"
 
+#..............................................................................................
 
-if __name__ == '__main__':
+def runRace ():
 
     continu = True
-    question = (input("a quoi voulez vous jouer ? tierce , quinte , quarte ? : "))
-    horses = int((input("combien de chevaux ? : ")))
-    testNumber = isinstance(horses, (int))
-    while continu:
+    nbHorses = 1
 
-        while (horses < 12 or horses > 20) or testNumber == False:
+    while continu:
+        question = (input("a quoi voulez vous jouer ? tierce , quinte , quarte ? : "))
+
+        while nbHorses == 1:
             try:
-                horses = int(input("Seulement des nombres compris entre 12 et 20 : "))
+                horses = int((input("combien de chevaux ? entre 12 et 20 : ")))
+                if horses < 12 and horses > 20:
+                    nbHorses = 1
+                elif horses > 11 and horses < 21:
+                    nbHorses = 0
             except ValueError:
-                horses = int(input("Veuillez entrer un nombre entier valide : "))
+                print("-> uniquement des nombres compri entre 12 et 20 !!")
 
         print(f"gagnant du {question} : {hippic(question, horses)}")
 
-        try:
-            nb = (input("voulez vous continuer ? y = yes , All-Other = no : "))
-            if nb.lower() == "Y".lower():
-                continu = True
-                question = (input("a quoi voulez vous rejouer ? tierce , quinte , quarte ? : "))
-                horses = int((input("combien de chevaux ? entre 12 et 20 : ")))
-            else:
-                continu = False
-                print("a bientot")
+        nb = (input("voulez vous continuer ? y = yes , All-Other = no : "))
+        if nb.lower() == "Y".lower():
+            continu = True
+            nbHorses = 1
+        else:
+            continu = False
+            print("a bientot")
 
-            #print(f"le resultat total est : {fact_nb} , {nb} etant le nombre de depart")
-        except ValueError:
-            print("ceci n'est pas correcte ressayer ! ")
+#..............................................................................................
+
+if __name__ == '__main__':
+
+    runRace()
